@@ -7,7 +7,7 @@ const ProfileSchema = new mongoose.Schema({
   },
   company: {
     type: String,
-    //required: [true, "user should have a name"]
+    required: [true, "user should have a name"]
   },
   location: {
     type: String,
@@ -23,6 +23,10 @@ const ProfileSchema = new mongoose.Schema({
   },
   githubusername : {
     type: String
+  },
+  hobbies: {
+    type:[String],
+    required: true
   },
   experience: [
     {
@@ -84,6 +88,10 @@ const ProfileSchema = new mongoose.Schema({
       }
     }
   ],
+  bio: {
+    type: String,
+    required: [true, "user should have a bio"]
+  },
   social: {
     linkedIn: String,
     youtube: String,

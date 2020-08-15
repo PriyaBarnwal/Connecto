@@ -43,13 +43,22 @@ router.route('/register')
       let token = jwt.sign({id: newUser.id}, config.get('JWT_SECRET'), {expiresIn: config.get('JWT_EXPIRY')})
       res.status(200).json({
         status: 'success',
-        token
+        data: {
+          token
+        }
       })
 
     } catch(err) {
+      if(err.code == 11000)
+        return res.status(400).json({
+          status: 'failed',
+          errors: [{
+            msg: 'Email already registered.'
+          }]
+        })
       res.status(500).json({
         status: 'failed',
-        message: err.message
+        errors: 'server error'
       })
     }
   })

@@ -14,6 +14,6 @@ connectDB()
 
 app.use(express.json())
 app.use('/api/users', userRoute)
-app.use('/api/profile', profileRoute)
+app.use('/api/profiles', profileRoute)
 app.use('/api/auth', authRoute)
 app.use('/api/posts', postsRoute)

@@ -11,11 +11,11 @@ router.route('/myprofile')
     authMiddleware.checkAuth,
     async(req, res) => {
       try {
-        let myProfile = await Profile.findOne({user: req.user}).populate('user', ['name', 'photo'])
+        let myProfile = await Profile.findOne({user: req.user}).populate('user', ['name', 'email', 'photo'])
 
         res.status(200).json({
           status: 'success',
-          message: myProfile
+          data: myProfile
         })
       }
       catch(err) {
@@ -33,17 +33,21 @@ router.route('/myprofile')
         let profile = await Profile.findOne({user: req.user})
         if(!profile)
           return res.status(404).json({
-            message: 'no progile found!'
+            message: 'no profile found!'
           })
 
-        let fields = ['company', 'location', 'role', 'skills', 'githubusername'],
+        let fields = ['company', 'location', 'role', 'skills', 'githubusername', 'hobbies', 'bio'],
           update = {} 
+          
         Object.keys(req.body).map(key => {
           if(fields.includes(key))
             update[key] = req.body[key]
           if(key=== 'skills')
             update[key] = update[key].split(',').map(skill =>skill.trim())
+          if(key=== 'hobbies')
+            update[key] = update[key].split(',').map(hobby =>hobby.trim())
         })
+
         update['social'] = {}
         update.social.youtube = req.body.youtube || profile.social.youtube
         update.social.linkedIn = req.body.linkedIn || profile.social.linkedIn
@@ -54,7 +58,7 @@ router.route('/myprofile')
 
         res.status(200).json({
           status: 'success',
-          message: updatedProfile
+          data: updatedProfile
         })
       }
       catch(err) {
@@ -92,7 +96,7 @@ router.route('/')
       let profiles = await Profile.find().populate('user')
       res.status(200).json({
         status: 'success',
-        message: profiles
+        data: profiles
       })
     }
     catch(err) {
@@ -105,7 +109,10 @@ router.route('/')
     authMiddleware.checkAuth,
     [
       body('skills', 'skills is required field').not().isEmpty(),
-      body('role', 'please enter your role').not().isEmpty()
+      body('role', 'please enter your role').not().isEmpty(),
+      body('bio', 'please enter something about yourself').not().isEmpty(),
+      body('hobbies', 'hobbies is required field').not().isEmpty(),
+      body('company', 'please enter your company').not().isEmpty()
     ],
     async(req, res)=> {
       let errors = validationResult(req).errors
@@ -115,7 +122,7 @@ router.route('/')
           errors
         })
       try {
-        const {company, location, role, skills, githubusername, youtube, facebook, linkedIn, twitter} = req.body
+        const {company, location, role, skills, githubusername, youtube, facebook, linkedIn, twitter, bio, hobbies} = req.body
 
         let newProfile = new Profile({
           user: req.user,
@@ -123,6 +130,8 @@ router.route('/')
           location,
           role,
           skills: skills.split(',').map(skill => skill.trim()),
+          hobbies: hobbies.split(',').map(hobby => hobby.trim()),
+          bio,
           githubusername,
           social : {}
         })
@@ -136,7 +145,7 @@ router.route('/')
 
         res.status(200).json({
           status: 'success',
-          message: newProfile
+          data: newProfile
         })
       } catch(err) {
         res.status(500).json({
@@ -148,14 +157,14 @@ router.route('/')
 router.route('/user/:userid')
   .get(async(req, res) => {
     try {
-      let profile = await Profile.findOne({user: req.params.userid}).populate('user', ['name', 'photo'])
+      let profile = await Profile.findOne({user: req.params.userid}).populate('user', ['name', 'email', 'photo'])
       if(!profile)
         return res.status(404).json({
           message: 'profile not found!'
         })
       res.status(200).json({
         status: 'success',
-        message: profile
+        data: profile
       })
     }
     catch(err) {
@@ -199,7 +208,7 @@ router.route('/experience')
 
         res.status(200).json({
           status: 'success',
-          message: profile
+          data: profile
         })
       }
       catch(err) {
@@ -299,7 +308,7 @@ router.route('/education')
 
         res.status(200).json({
           status: 'success',
-          message: profile
+          data: profile
         })
       }
       catch(err) {

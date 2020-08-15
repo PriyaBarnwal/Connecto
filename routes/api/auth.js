@@ -9,7 +9,21 @@ const User = require('../../models/UserModel')
 const router = express.Router()
 
 router.route('/')
-  .get(authMiddleware.checkAuth, (req,res) => res.status(200).send('auth route'))
+  .get(authMiddleware.checkAuth, async(req, res) => {
+    try {
+      let user = await User.findById({_id: req.user})
+
+      res.status(200).json({
+        status: 'success',
+        data: user
+      })
+    } catch(err) {
+      res.status(500).json({
+        status:'fail',
+        error: 'server error'
+      })
+    }
+})
 
 
 router.route('/login')
@@ -38,7 +52,9 @@ async(req, res) => {
     let token = jwt.sign({id: user.id}, config.get('JWT_SECRET'), {expiresIn: config.get('JWT_EXPIRY')})
     res.status(200).json({
       status: 'success',
-      token
+      data: {
+        token
+      }
     })
 
   } catch(err) {
