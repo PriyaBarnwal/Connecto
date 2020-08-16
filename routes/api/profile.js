@@ -232,7 +232,7 @@ router.route('/experience/:expid')
   
         res.status(200).json({
           status: 'success',
-          message: profile
+          data: profile
         })
       }
       catch(err) {
@@ -262,7 +262,7 @@ router.route('/experience/:expid')
 
         res.status(200).json({
           status: 'success',
-          message: profile
+          data: profile
         })
       }
       catch(err) {
@@ -329,10 +329,10 @@ router.route('/education/:eduid')
 
         profile.education = profile.education.filter(edu => edu.id!==req.params.eduid)
         await profile.save()
-  
+
         res.status(200).json({
           status: 'success',
-          message: profile
+          data: profile
         })
       }
       catch(err) {
@@ -362,7 +362,7 @@ router.route('/education/:eduid')
 
         res.status(200).json({
           status: 'success',
-          message: profile
+          data: profile
         })
       }
       catch(err) {

@@ -1,0 +1,91 @@
+.portfolio {
+  background: #32383e;
+  position: relative;
+}
+.profile-img img {
+  width: 200px;
+  height: 200px;
+}
+.edit-btn {
+  position: absolute;
+  right: 3vw;
+}
+
+.intro-section{ 
+  height: 500px;
+  padding-top: 100px; 
+  background-size: cover; 
+  z-index: 1;
+  background-image: url('./../img/showcase.jpg');
+}
+
+.intro{ padding: 0 20px; margin-top: 100px; text-align: center; background: #fff; }
+
+.intro .profile-img{ height: 200px; width: 200px; border-radius: 100px; margin: 0 auto; 
+	overflow: hidden; position: relative; top: -100px; margin-bottom: -70px;  }
+
+.intro .information > li{ display: block; margin: 5px 0; }
+
+.intro .stat {
+  height: 50px;
+    width: 50px;
+    border-radius: 100%;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    margin: auto;
+}
+
+.social-link {
+  list-style: none;
+  display: inline-block;
+}
+.intro .social-icons > li > a{ 
+  border-radius: 100%; 
+  position: relative; 
+  height: 35px;
+  line-height: 35px;
+  display: inline-block;
+  width: 35px;
+  margin: 0 5px 5px; 
+  background: #887392; 
+  color: #fff; 
+}
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+.bio-section, .skills-section {
+  padding:  15px 0;
+  color: #fff;
+}
+
+.education-section {
+  padding: 30px;
+  background: #2c073d;
+  color: rgb(15, 15, 4);
+  border-radius: 0 0 0.25rem 0.25rem;
+}
+
+.experience-section {
+  padding: 30px;
+  background: #ffa804;;
+  color: rgb(15, 15, 4);
+  border-radius: 0.25rem 0.25rem 0 0;
+}
+
+.heading {
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.about-card {
+  background-color: #887392;
+}
+
+.badge-group {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+}

@@ -14,7 +14,7 @@ router.route('/')
         let posts = await Post.find().sort({date: -1})
         res.status(200).json({
           status: 'success',
-          message: posts
+          data: posts
         })
       }
       catch(err) {
@@ -48,7 +48,7 @@ router.route('/')
 
         res.status(200).json({
           status: 'success',
-          message: newPost
+          data: newPost
         })
       }
       catch(err) {
@@ -111,7 +111,7 @@ router.route('/:postid')
 
         res.status(200).json({
           status: 'success',
-          message: post
+          data: post
         })
       } catch (err) {
         if(err.kind === 'ObjectId')
@@ -150,7 +150,7 @@ router.route('/:postid/like')
 
         res.status(200).json({
           status: 'success',
-          message: post.likes
+          data: post.likes
         })
 
       }
@@ -201,7 +201,7 @@ router.route('/:postid/comments')
 
         res.status(200).json({
           status: 'success',
-          message: post.comments
+          data: post.comments
         })
       }
       catch(err) {
@@ -245,7 +245,7 @@ router.route('/:postid/comments/:commentid')
 
         res.status(200).json({
           status: 'success',
-          message: post.comments
+          data: post.comments
         })
       } catch (err) {
         if(err.kind === 'ObjectId')

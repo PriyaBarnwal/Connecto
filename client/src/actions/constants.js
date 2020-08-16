@@ -1,0 +1,22 @@
+//alerts
+export const SET_ALERT = 'SET_ALERT'
+export const REMOVE_ALERT = 'REMOVE_ALERT'
+
+//auth and user
+export const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
+export const AUTH_SUCCESS = 'AUTH_SUCCESS'
+export const AUTH_FAILURE = 'AUTH_FAILURE'
+export const SIGN_OUT = 'SIGN_OUT'
+export const REMOVE_ACCOUNT = 'REMOVE_ACCOUNT'
+
+//profile
+export const CREATE_PROFILE = 'CREATE_PROFILE'
+export const GET_MYPROFILE = 'GET_MYPROFILE'
+export const GET_PROFILE = 'GET_PROFILE'
+export const GET_PROFILES = 'GET_PROFILES'
+export const UPDATE_PROFILE = 'UPDATE_PROFILE'
+export const CLEAR_PROFILE = 'CLEAR_PROFILE'
+export const UPDATE_EXPERIENCE = 'UPDATE_EXPERIENCE'
+export const UPDATE_EDUCATION = 'UPDATE_EDUCATION'
+export const PROFILE_ERROR = 'PROFILE_ERROR'
