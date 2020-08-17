@@ -36,6 +36,28 @@ html,body, #root {
   justify-content: space-between;
 }
 
+@media (min-width: 767px) {
+  .form-inline .form-control{
+    width: 20rem;
+  }
+}
+
+.profile-list {
+  padding: 10px;
+  margin: 20px auto;
+  max-width: 700px;
+}
+
+.profile-item-name {
+  margin-bottom: 0;
+  color: #17a2b8;
+}
+
+.profile-item-location {
+  font-size: 0.8rem;
+  color: #062b31;
+}
+
 .form .social-input i {
   margin-right: 0.5rem;
 }

@@ -7,7 +7,9 @@ import Login from './components/Login'
 import Register from './components/Register'
 import Dashboard from './components/Dashboard'
 import MyProfile from './components/Profile/MyProfile'
+import ViewProfile from './components/Profile/ViewProfile'
 import ProfileForm from './components/Profile/ProfileForm'
+import PeopleSearch from './components/PeopleSearch'
 import { checkAuth } from './actions/authActions'
 import Alert from './components/Alert'
 
@@ -36,6 +38,8 @@ const App = () => {
           <Switch>
             <Route exact path="/register" component={Register}/>
             <Route exact path="/login" component={Login}/>
+            <Route exact path="/profiles" component={PeopleSearch}/>
+            <Route exact path="/profile/:id" component={ViewProfile}/>
             <PrivateRoute exact path="/dashboard" component={Dashboard}/>
             <PrivateRoute exact path="/myprofile" component={MyProfile}/>
             <PrivateRoute exact path="/editprofile" component={ProfileForm}/>

@@ -94,6 +94,12 @@ router.route('/')
   .get(async(req,res) => {
     try {
       let profiles = await Profile.find().populate('user')
+
+      if(req.query && req.query.name) {
+        profiles = profiles.filter(profile => 
+          profile.user.name.toLowerCase().includes(req.query.name.toLowerCase())
+        )
+      }
       res.status(200).json({
         status: 'success',
         data: profiles
@@ -143,9 +149,11 @@ router.route('/')
 
         await newProfile.save()
 
+        let profile = await Profile.findOne({user: req.user}).populate('user', ['name', 'email', 'photo'])
+
         res.status(200).json({
           status: 'success',
-          data: newProfile
+          data: profile
         })
       } catch(err) {
         res.status(500).json({

@@ -1,11 +1,14 @@
-import React, {Fragment} from 'react'
+import React, {Fragment, useState} from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { signOut } from '../actions/authActions'
+import {Spinner, Form, FormControl, Button} from 'react-bootstrap'
 
 const Navbar = ({auth, signOut}) => {
+  let [name, setName]= useState('')
+
   let authNav = (
-    <ul className="ml-auto navbar-nav">
+    <ul className="navbar-nav">
       <li className="nav-item active px-2">
         <Link className="nav-link" to="/">Home <span className="sr-only">(current)</span></Link>
       </li>
@@ -19,7 +22,7 @@ const Navbar = ({auth, signOut}) => {
   )
   
   let dashboardNav = (
-    <ul className="ml-auto navbar-nav">
+    <ul className="navbar-nav">
       <li className="nav-item px-2">
         <Link className="nav-link" to="/dashboard">Dashboard</Link>
       </li>
@@ -44,8 +47,19 @@ const Navbar = ({auth, signOut}) => {
         <span className="navbar-toggler-icon"></span>
       </button>
       <div className="collapse navbar-collapse" id="navbarId" >
+        <Form onSubmit={(e)=> e.preventDefault()} inline className="mx-auto">
+          <FormControl 
+            type="text" 
+            placeholder="Search for members.." 
+            name={name} 
+            value={name} 
+            onChange={(e)=> setName(e.target.value)}
+            className="mr-sm-2"
+          />
+          <Link to={{pathname: "/profiles", props: {'name': name}}}><Button variant="info" onClick={()=>setName('')}><i className="fas fa-search"></i></Button></Link>
+        </Form>
         {auth.isLoading 
-          ? null 
+          ? <Spinner animation="border" role="status"></Spinner>
           : (
           <Fragment>
             {auth.isAuthenticated ? dashboardNav : authNav}

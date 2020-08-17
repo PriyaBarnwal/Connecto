@@ -10,9 +10,10 @@ const Portfolio = ({profile, editProfile}) => {
         <div className="container">
           <div className="row">
             <div className="col-md-10 col-lg-8 mx-auto">
-              <button type="button" className="btn btn-dark edit-btn" onClick={()=> editProfile()}>
+              {editProfile ? 
+              (<button type="button" className="btn btn-dark edit-btn" onClick={()=> editProfile()}>
                 <i className="fas fa-user-edit"/> Edit Profile
-              </button>
+              </button>): null}
               <div className="intro">
                 <div className="profile-img">
                   <img src={profile.user.photo} alt=""/>

@@ -1,5 +1,6 @@
 import {
   CREATE_PROFILE, 
+  CLEAR_MYPROFILE,
   CLEAR_PROFILE, 
   GET_MYPROFILE, 
   GET_PROFILE,
@@ -37,10 +38,15 @@ const profileReducer = (state=initialState, action) => {
         ...state,
         profile: payload
       }
+    case CLEAR_MYPROFILE:
+      return {
+        ...state,
+        myprofile: null,
+      }
     case CLEAR_PROFILE:
       return {
         ...state,
-        myprofile: null
+        profile: null
       }
     case GET_PROFILES:
       return {

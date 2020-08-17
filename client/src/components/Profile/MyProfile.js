@@ -2,6 +2,7 @@ import React, {useEffect, Fragment} from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { getMyProfile } from '../../actions/profileActions'
+import { Spinner } from 'react-bootstrap'
 import Portfolio from './Portfolio'
 import ProfileForm from './ProfileForm'
 
@@ -17,7 +18,7 @@ const MyProfile = ({auth, profile, getMyProfile, history}) => {
     <Fragment>
       {
       profile.loading
-        ? null
+        ? <Spinner animation="border" role="status"></Spinner>
         : profile.myprofile!== null
         ? <Portfolio profile={profile.myprofile} editProfile={() =>editProfile()}/>
         : <ProfileForm/>

@@ -28,9 +28,13 @@ export const getMyProfile = () => async(dispatch) => {
   }
 }
 
-export const getProfiles = () => async(dispatch) => {
+export const getProfiles = (name) => async(dispatch) => {
   try {
-    let res = await axios.get('/api/profiles')
+    let params={}
+    if(name) 
+      params['name'] = name
+      
+    let res = await axios.get('/api/profiles', {params})
 
     dispatch({
       type: GET_PROFILES,
@@ -252,7 +256,7 @@ export const editEducation = (id, formData) => async(dispatch) => {
 
 export const getProfileById = userId => async(dispatch) => {
   try {
-    const res = await axios.get(`/api/profile/user/${userId}`)
+    const res = await axios.get(`/api/profiles/user/${userId}`)
 
     dispatch({
       type: GET_PROFILE,
@@ -264,4 +268,11 @@ export const getProfileById = userId => async(dispatch) => {
       payload: { msg: err.response.statusText, status: err.response.status }
     })
   }
+}
+
+export const clearProfile = () => dispatch => {
+  dispatch({
+    type: CLEAR_PROFILE,
+    payload: null
+  })
 }
