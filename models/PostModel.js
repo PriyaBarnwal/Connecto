@@ -5,6 +5,10 @@ const PostSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'users'
   },
+  title: {
+    type: String,
+    required: [true, 'Title of post is required']
+  },
   text: {
     type: String,
     required: [true, 'Content is required']

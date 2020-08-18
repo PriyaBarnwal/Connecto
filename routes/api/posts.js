@@ -27,7 +27,8 @@ router.route('/')
   .post(
     authMiddleware.checkAuth,
     [
-      body('text', 'please enter text to post').not().isEmpty()
+      body('text', 'please enter text to post').not().isEmpty(),
+      body('title', 'please enter a title').not().isEmpty()
     ],
     async(req,res) => {
       let errors = validationResult(req).errors
@@ -41,7 +42,8 @@ router.route('/')
           user: req.user,
           name: user.name,
           profilephoto: user.photo,
-          text: req.body.text
+          text: req.body.text,
+          title: req.body.title
         })
 
         await newPost.save()
@@ -60,6 +62,31 @@ router.route('/')
   )
   
 router.route('/:postid')
+  .get(
+    authMiddleware.checkAuth,
+    async(req, res) => {
+      try {
+        let post = await Post.findById(req.params.postid)
+        if(!post)
+          return res.status(404).json({
+            message: 'post not found'
+          })
+
+        res.status(200).json({
+          status: 'success',
+          data: post
+        })
+      } catch (err) {
+        if(err.kind === 'ObjectId')
+          return res.status(404).json({
+            message: 'post not found'
+          })
+        res.status(500).json({
+          message: 'server error'
+        })
+      }
+    }
+  )
   .delete(
     authMiddleware.checkAuth,
     async(req, res) => {

@@ -2,7 +2,7 @@ import React, {Fragment, useState} from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { signOut } from '../actions/authActions'
-import {Spinner, Form, FormControl, Button} from 'react-bootstrap'
+import { Form, FormControl, Button} from 'react-bootstrap'
 
 const Navbar = ({auth, signOut}) => {
   let [name, setName]= useState('')
@@ -41,7 +41,7 @@ const Navbar = ({auth, signOut}) => {
   )
 
   return (
-    <nav className="navbar navbar-expand-md navbar-dark bg-dark">
+    <nav className="navbar fixed-top-md navbar-expand-md navbar-dark " style={{background: '#026170'}}>
       <a className="navbar-brand" href="index.html">Connecto</a>
       <button className="navbar-toggler-right navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarId" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
@@ -56,10 +56,10 @@ const Navbar = ({auth, signOut}) => {
             onChange={(e)=> setName(e.target.value)}
             className="mr-sm-2"
           />
-          <Link to={{pathname: "/profiles", props: {'name': name}}}><Button variant="info" onClick={()=>setName('')}><i className="fas fa-search"></i></Button></Link>
+          <Link to={{pathname: "/profiles", props: {'name': name}}}><Button variant="light" onClick={()=>setName('')}><i className="fas fa-search"></i></Button></Link>
         </Form>
         {auth.isLoading 
-          ? <Spinner animation="border" role="status"></Spinner>
+          ? null
           : (
           <Fragment>
             {auth.isAuthenticated ? dashboardNav : authNav}

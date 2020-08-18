@@ -21,3 +21,11 @@ export const CLEAR_MYPROFILE = 'CLEAR_MYPROFILE'
 export const UPDATE_EXPERIENCE = 'UPDATE_EXPERIENCE'
 export const UPDATE_EDUCATION = 'UPDATE_EDUCATION'
 export const PROFILE_ERROR = 'PROFILE_ERROR'
+
+//posts
+export const GET_ALLPOSTS = 'GET_ALLPOSTS'
+export const GET_POST = 'GET_POST'
+export const DELETE_POST = 'DELETE_POST'
+export const UPDATE_POST = 'UPDATE_POST'
+export const POST_ERROR = 'POST_ERROR'
+export const TOGGLE_LIKE = 'TOGGLE_LIKE'

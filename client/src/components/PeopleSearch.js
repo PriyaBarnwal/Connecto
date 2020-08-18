@@ -31,7 +31,7 @@ const PeopleSearch = ({profile: {profiles, loading}, getProfiles, location}) => 
                   alt=""
                 />
                 <Media.Body style={{'borderBottom': '1px solid darkgrey'}}>
-                  <Link to={`/profile/${profile.user._id}`}><h6 className="profile-item-name">{profile.user.name}</h6></Link>
+                  <Link to={`/profiles/${profile.user._id}`}><h6 className="profile-item-name">{profile.user.name}</h6></Link>
                   <h7>
                     {profile.role} at {profile.company}
                   </h7>

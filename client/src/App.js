@@ -33,13 +33,14 @@ const App = () => {
       <Router>
         <Fragment>
           <Navbar/>
+          <div className="just-empty"/>
           <Alert/>
           <Route exact path="/" component={HomeContainer}/>
           <Switch>
             <Route exact path="/register" component={Register}/>
             <Route exact path="/login" component={Login}/>
             <Route exact path="/profiles" component={PeopleSearch}/>
-            <Route exact path="/profile/:id" component={ViewProfile}/>
+            <Route exact path="/profiles/:id" component={ViewProfile}/>
             <PrivateRoute exact path="/dashboard" component={Dashboard}/>
             <PrivateRoute exact path="/myprofile" component={MyProfile}/>
             <PrivateRoute exact path="/editprofile" component={ProfileForm}/>
