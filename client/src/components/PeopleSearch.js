@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react'
+import React, { useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import {getProfiles} from './../actions/profileActions'
-import {Spinner, Media, Image, Button, Container} from 'react-bootstrap'
+import {Spinner, Media, Image, Container} from 'react-bootstrap'
 
 const PeopleSearch = ({profile: {profiles, loading}, getProfiles, location}) => {
   useEffect(()=>{

@@ -28,10 +28,10 @@ const Portfolio = ({profile, editProfile}) => {
                         <span className="badge badge-dark stat">40</span> Connections 
                       </button> */}
                       <ul className="social-icons">
-                        {profile.social.youtube? <li className="social-link"><a href={profile.social.youtube}><i className="fab fa-youtube"></i></a></li> : null}
-                        {profile.social.linkedIn?<li className="social-link"><a href={profile.social.linkedIn}><i className="fab fa-linkedin-in"></i></a></li>: null}
-                        {profile.social.facebook?<li className="social-link"><a href={profile.social.facebook}><i className="fab fa-facebook-f"></i></a></li>: null}
-                        {profile.social.twitter?<li className="social-link"><a href={profile.social.twitter}><i className="fab fa-twitter"></i></a></li>: null}
+                        {profile.social.youtube? <li className="social-link"><a href={profile.social.youtube} target="_blank" rel="noopener noreferrer"><i className="fab fa-youtube"></i></a></li> : null}
+                        {profile.social.linkedIn?<li className="social-link"><a href={profile.social.linkedIn} target="_blank" rel="noopener noreferrer"><i className="fab fa-linkedin-in"></i></a></li>: null}
+                        {profile.social.facebook?<li className="social-link"><a href={profile.social.facebook} target="_blank" rel="noopener noreferrer"><i className="fab fa-facebook-f"></i></a></li>: null}
+                        {profile.social.twitter?<li className="social-link"><a href={profile.social.twitter} target="_blank" rel="noopener noreferrer"><i className="fab fa-twitter"></i></a></li>: null}
                       </ul>
                       {/* <button type="button" className="btn ">
                         <span className="badge badge-dark stat">4</span> Posts

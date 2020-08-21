@@ -4,12 +4,12 @@ import {Spinner} from 'react-bootstrap'
 import { getProfileById, clearProfile } from '../../actions/profileActions'
 import Portfolio from './Portfolio'
 
-const ViewProfile = ({ getProfileById, clearProfile, profile: { profile }, match }) => {
+const ViewProfile = ({ getProfileById, clearProfile, profile: { profile }, computedMatch, match }) => {
   console.log(match)
   useEffect(() => {
     clearProfile()
-    getProfileById(match.params.id)
-  }, [getProfileById, match.params.id, clearProfile])
+    getProfileById(computedMatch.params.id)
+  }, [getProfileById, computedMatch.params.id, clearProfile])
 
   return (
     <Fragment>

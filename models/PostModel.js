@@ -20,6 +20,7 @@ const PostSchema = new mongoose.Schema({
   profilephoto: {
     type: String
   },
+  tags: [String],
   likes: [{
     user: {
       type: mongoose.Schema.Types.ObjectId,

@@ -9,14 +9,10 @@ const Dashboard = ({auth, posts, getAllPosts}) => {
     getAllPosts()
   }, [getAllPosts])
   return (
-    auth.loading || posts.loading? <Spinner animation='border' role='status'/>
+    auth.loading || posts.loading || !auth.user? <Spinner animation='border' role='status'/>
     :(posts.posts && posts.posts.length> 0) ?(
 
     <Fragment>
-      <h2>
-        <i className="fas fa-user" /> Welcome {auth.user.name}
-      </h2>
-      {/* <PostForm /> */}
       <Container>
         <Row>
           <Col></Col>

@@ -1,12 +1,12 @@
 import React, {Fragment} from 'react'
-import {Link} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {Card, Image, OverlayTrigger, Popover, Button, ListGroup} from 'react-bootstrap'
-import {deletePost, toggleLike, updatePost} from '../../actions/postActions'
+import {deletePost, toggleLike} from '../../actions/postActions'
 import Moment from 'react-moment'
 import '../../styles/feed.css'
 
-const PostItem = ({post, deletePost, toggleLike, updatePost, auth}) => {
+const PostItem = ({post, deletePost, toggleLike, history, auth}) => {
   let liked = post.likes.findIndex(like=> like.user.toString() === auth.user._id) === -1 ? '' : 'liked'
 
   return (
@@ -28,7 +28,7 @@ const PostItem = ({post, deletePost, toggleLike, updatePost, auth}) => {
                 <Popover.Content>
                 <ListGroup variant="flush">
                   <ListGroup.Item>
-                    <Button className="transparent-button">
+                    <Button className="transparent-button" onClick={()=>history.push(`/editPost/${post._id}`)}>
                       <i className="fas fa-pencil-alt"></i> Edit
                     </Button>
                   </ListGroup.Item>
@@ -46,15 +46,15 @@ const PostItem = ({post, deletePost, toggleLike, updatePost, auth}) => {
           </OverlayTrigger>
           </div>): null}
         </Card.Body>
-        <Card.Body>
-          <Card.Title>Live Search with React</Card.Title>
+        <Card.Body style ={{whiteSpace: 'pre-wrap'}}>
+          <Card.Title>{post.title}</Card.Title>
           {post.text.length> 500 
-            ? <Card.Text>{post.text.slice(0,500)}... <Link className="simple-arrow">Read</Link></Card.Text>
+            ? <Card.Text>{post.text.slice(0,500)}... <Link to={`/posts/${post._id}`} className="simple-arrow">Read</Link></Card.Text>
             : <Card.Text>{post.text}</Card.Text>}
         </Card.Body>
         <Card.Footer className="d-flex">
           <Button className={`transparent-button ${liked}`} onClick={()=> toggleLike(post._id)}><i className="fas fa-thumbs-up"/> {post.likes.length}</Button>
-          <Button className="transparent-button pl-3"><i className="fas fa-comments"/> {post.comments.length}</Button>
+          <Link to={`/posts/${post._id}`}><Button className="transparent-button pl-3"><i className="fas fa-comments"/> {post.comments.length}</Button></Link>
         </Card.Footer>
       </Card>
     </Fragment>
@@ -65,7 +65,7 @@ const mapStateToProps = state => ({
   auth: state.auth 
 })
 
-export default connect(mapStateToProps, {deletePost, updatePost, toggleLike})(PostItem)
+export default connect(mapStateToProps, {deletePost, toggleLike})(withRouter(PostItem))
 
 
 

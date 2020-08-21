@@ -43,7 +43,8 @@ router.route('/')
           name: user.name,
           profilephoto: user.photo,
           text: req.body.text,
-          title: req.body.title
+          title: req.body.title,
+          tags: req.body.tags.split(',').map(tag=>tag.trim())
         })
 
         await newPost.save()

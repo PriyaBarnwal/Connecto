@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { REGISTER_SUCCESS, AUTH_FAILURE, LOGIN_SUCCESS, AUTH_SUCCESS, SIGN_OUT, CLEAR_MYPROFILE } from './constants'
+import { REGISTER_SUCCESS, AUTH_FAILURE, LOGIN_SUCCESS, AUTH_SUCCESS, SIGN_OUT, CLEAR_MYPROFILE, REMOVE_ACCOUNT } from './constants'
 import {setAlert} from './alertActions'
 
 const setAuthToken = token => {
@@ -114,4 +114,8 @@ export const signOut = () => (dispatch) => {
       payload: null
     }
   )
+}
+
+export const deleteAccount = () => (dispatch) => {
+  // add later
 }

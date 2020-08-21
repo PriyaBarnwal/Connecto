@@ -1,4 +1,4 @@
-import {GET_ALLPOSTS, GET_POST, DELETE_POST, POST_ERROR, TOGGLE_LIKE, UPDATE_POST} from '../actions/constants'
+import {GET_ALLPOSTS, GET_POST, DELETE_POST, POST_ERROR, TOGGLE_LIKE, UPDATE_POST, CLEAR_POST, ADD_COMMENT, REMOVE_COMMENT, CREATE_POST} from '../actions/constants'
 
 let initialState = {
   posts: [],
@@ -24,6 +24,12 @@ const postReducer = (state = initialState, action) => {
         post: payload,
         loading: false
       }
+    case CREATE_POST:
+      return {
+        ...state,
+        posts: [payload, ...state.posts],
+        loading: false
+      }
     case TOGGLE_LIKE:
       return {
         ...state,
@@ -32,6 +38,21 @@ const postReducer = (state = initialState, action) => {
             return {...post, likes: payload.likes}
           return post
         })
+      }
+    case ADD_COMMENT:
+    case REMOVE_COMMENT:
+      return {
+        ...state,
+        posts: state.posts.map(post => {
+          if(post.id === payload.id)
+            return {...post, comments: payload.comments}
+          return post
+        })
+      }
+    case CLEAR_POST: 
+      return {
+        ...state,
+        post: null
       }
     case DELETE_POST:
       return {
