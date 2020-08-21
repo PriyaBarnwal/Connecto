@@ -1,9 +1,10 @@
 html,body, #root {
   height: 100vh;
+  background: #f7f7f7;
 }
 
 .color-prime {
-  color: #17a2b8;
+  color: #17a2b8 !important;
 }
 
 .btn:focus, 
@@ -29,12 +30,16 @@ html,body, #root {
   color: #17a2b8 !important;
 }
 
+.not-liked, .not-liked:focus .not-liked:hover{
+  color: grey !important;
+}
+
 .form-signup {
-  max-width: 420px;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
+  width: 420px;
+  background: black; 
+  padding: 15px;
+  color: white;
+  opacity: 1;
 }
 
 .alert {
@@ -46,6 +51,12 @@ html,body, #root {
   margin-top: 20px;
   color: #ffa804;
   padding: 20px;
+}
+
+.loginform-container {
+    display: flex;
+    height: 100%;
+    align-items: center;
 }
 
 .form .social-input {
@@ -68,7 +79,7 @@ html,body, #root {
   }
 
   .just-empty {
-    height: 56px;
+    height: 60px;
   }
 }
 
@@ -124,4 +135,62 @@ html,body, #root {
   .hide-sm {
     display: none;
   }
+}
+
+.post-header {
+  background: #32383e;
+  color: #fff;
+  padding: 10px;
+}
+
+.post-container {
+  padding: 10px;
+  box-shadow: 0 10px 6px -6px #bdbcbc;
+  color: #666;
+  background: white;
+  font-size: 15px;
+  white-space: pre-wrap;
+}
+
+.comments-container {
+  overflow-y: scroll;
+  max-height: 250px;
+}
+
+.border-bottom {
+  border-bottom: 1px solid grey;
+}
+
+.navbar {
+  font-family: "Gill Sans", sans-serif;
+  font-size: 1.2rem;
+  background: '#026170';
+}
+
+.back-page {
+  background:  url('../img/landing.png') right no-repeat, #ffa804;
+  height: 100%;
+  background-repeat: no-repeat; 
+  background-size: auto;
+}
+
+.welcome {
+  font-family: cursive;
+  text-align: center;
+  color: white;
+  background: url('../img/blackwood.jpeg');
+  background-repeat: no-repeat; 
+  background-size: cover;
+  padding: 1rem;
+}
+
+.carousel-caption p {
+  background: black;
+  opacity: 0.6;
+  font-size: 1.2rem;
+  font-family: cursive;
+}
+.carousel-caption h3 {
+  font-family: "Gill Sans", sans-serif;
+  margin-bottom: 0;
 }
