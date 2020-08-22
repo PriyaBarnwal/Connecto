@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from 'react'
 import { connect } from 'react-redux'
-import {Spinner} from 'react-bootstrap'
+import Loader from '../Loader.js'
 import { getProfileById, clearProfile } from '../../actions/profileActions'
 import Portfolio from './Portfolio'
 
@@ -14,7 +14,7 @@ const ViewProfile = ({ getProfileById, clearProfile, profile: { profile }, compu
   return (
     <Fragment>
       {profile === null ? (
-        <Spinner  animation="border" role="status"/>
+        <Loader/>
       ) : (
         <Fragment>
           <Portfolio profile={profile}/>

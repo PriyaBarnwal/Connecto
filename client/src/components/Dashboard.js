@@ -2,14 +2,15 @@ import React, { useEffect, Fragment } from 'react'
 import { connect } from 'react-redux'
 import PostItem from './Posts/PostItem'
 import { getAllPosts} from '../actions/postActions'
-import { Container, Row, Col, Spinner} from 'react-bootstrap'
+import { Container, Row, Col} from 'react-bootstrap'
+import Loader from './Loader.js'
 
 const Dashboard = ({auth, posts, getAllPosts}) => {
   useEffect(()=>{
     getAllPosts()
   }, [getAllPosts])
   return (
-    auth.loading || posts.loading || !auth.user? <Spinner animation='border' role='status'/>
+    auth.loading || posts.loading || !auth.user? <Loader/>
     :(posts.posts && posts.posts.length> 0) ?(
 
     <Fragment>

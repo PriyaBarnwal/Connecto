@@ -35,23 +35,27 @@ const App = () => {
     <Provider store={store}>
       <Router>
         <Fragment>
-          <Navbar/>
-          <div className="just-empty"/>
-          <Alert/>
-          <Route exact path="/" component={HomeContainer}/>
-          <Switch>
-            <Route exact path="/register" component={Register}/>
-            <Route exact path="/login" component={Login}/>
-            <Route exact path="/profiles" component={PeopleSearch}/>
-            <PrivateRoute exact path="/profiles/:id" component={ViewProfile}/>
-            <PrivateRoute exact path="/posts/:id" component={ViewPost}/>
-            <PrivateRoute exact path="/dashboard" component={Dashboard}/>
-            <PrivateRoute exact path="/myprofile" component={MyProfile}/>
-            <PrivateRoute exact path="/editprofile" component={ProfileForm}/>
-            <PrivateRoute exact path="/createPost" component={PostForm}/>
-            <PrivateRoute exact path="/editPost/:id" component={PostForm}/>
-          </Switch>
-          <Footer/>
+          <div className="wrapper">
+            <div>
+              <Navbar/>
+              <div className="just-empty"/>
+                <Alert/>
+                <Route exact path="/" component={HomeContainer}/>
+                <Switch>
+                  <Route exact path="/register" component={Register}/>
+                  <Route exact path="/login" component={Login}/>
+                  <Route exact path="/profiles" component={PeopleSearch}/>
+                  <PrivateRoute exact path="/profiles/:id" component={ViewProfile}/>
+                  <PrivateRoute exact path="/posts/:id" component={ViewPost}/>
+                  <PrivateRoute exact path="/dashboard" component={Dashboard}/>
+                  <PrivateRoute exact path="/myprofile" component={MyProfile}/>
+                  <PrivateRoute exact path="/editprofile" component={ProfileForm}/>
+                  <PrivateRoute exact path="/createPost" component={PostForm}/>
+                  <PrivateRoute exact path="/editPost/:id" component={PostForm}/>
+                </Switch>
+              </div>
+            <Footer/>
+          </div>
         </Fragment>
       </Router>  
     </Provider>

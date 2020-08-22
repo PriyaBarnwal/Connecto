@@ -7,9 +7,13 @@ import carousel4 from '../img/carousel-4.jpg'
 import carousel1 from '../img/carousel-1.png'
 import carousel2 from '../img/carousel-2.jpg'
 import carousel5 from '../img/carousel-5.jpg'
+import Loader from './Loader'
 
 const HomeContainer = ({auth}) => {
-  if(auth.auth && auth.auth.isAuthenticated) 
+  if(auth.loading)
+    return <Loader/>
+
+  if(auth.isAuthenticated) 
     return <Redirect to='/dashboard'/>
 
   return (

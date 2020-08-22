@@ -2,7 +2,8 @@ import React, { useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import {getProfiles} from './../actions/profileActions'
-import {Spinner, Media, Image, Container} from 'react-bootstrap'
+import {Media, Image, Container} from 'react-bootstrap'
+import Loader from './Loader.js'
 
 const PeopleSearch = ({profile: {profiles, loading}, getProfiles, location}) => {
   useEffect(()=>{
@@ -15,7 +16,7 @@ const PeopleSearch = ({profile: {profiles, loading}, getProfiles, location}) => 
   return (
     <Container>
       {loading 
-        ? <Spinner animation="border" className ="d-flex m-auto" role="status"/>
+        ? <Loader/>
         : (
           <ul className="list-unstyled profile-list">{
           profiles && profiles.length>0 

@@ -2,8 +2,9 @@ import React, {Fragment, useEffect, useState} from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import {getPostById, removeComment, addComment, clearPost, toggleLike} from '../../actions/postActions'
-import { Container, Spinner, Row, Image, Col, Badge, Media, Button, Form } from 'react-bootstrap'
+import { Container, Row, Image, Col, Badge, Media, Button, Form } from 'react-bootstrap'
 import Moment from 'react-moment'
+import Loader from '../Loader.js'
 
 const hasUserLiked = (post, user) => {
   return post.likes.findIndex(like=> like.user.toString() === user._id) === -1 ? 'not-liked' : 'liked'
@@ -20,7 +21,7 @@ const ViewPost = ({posts: {post, posts}, auth: {user}, getPostById, removeCommen
   return (
     <Fragment>
       {post === null ? (
-        <Spinner  animation="border" role="status"/>
+        <Loader/>
       ) : (
         <Fragment>
           <Container className="pt-3">
