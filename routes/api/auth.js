@@ -46,7 +46,7 @@ async(req, res) => {
     if(!user || !(await bcrypt.compare(password, user.password))) 
       return res.status(400).json({
         status: 'failed',
-        message: 'invalid credentials'
+        errors: [{msg: 'invalid credentials'}]
       })
 
     let token = jwt.sign({id: user.id}, config.get('JWT_SECRET'), {expiresIn: config.get('JWT_EXPIRY')})
@@ -58,7 +58,6 @@ async(req, res) => {
     })
 
   } catch(err) {
-    console.log(err)
     res.status(500).json({
       status: 'failed',
       message: err.message

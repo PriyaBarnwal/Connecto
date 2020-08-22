@@ -1,15 +1,17 @@
 import React, {useEffect, Fragment} from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { getMyProfile } from '../../actions/profileActions'
+import { getMyProfile, setLoading } from '../../actions/profileActions'
 import Loader from '../Loader.js'
 import Portfolio from './Portfolio'
 import ProfileForm from './ProfileForm'
 
-const MyProfile = ({auth, profile, getMyProfile, history}) => {
+const MyProfile = ({auth, profile, getMyProfile, history, setLoading}) => {
   useEffect(()=>{
+    setLoading(true)
+    
     getMyProfile()
-  }, [getMyProfile])
+  }, [getMyProfile, setLoading])
 
   let editProfile = () => {
     history.push('/editprofile')
@@ -32,4 +34,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth
 })
 
-export default connect(mapStateToProps, {getMyProfile})(withRouter(MyProfile))
+export default connect(mapStateToProps, {getMyProfile, setLoading})(withRouter(MyProfile))

@@ -16,7 +16,7 @@ exports.checkAuth = async(req, res, next) => {
   } catch(err) {
     return res.status(401).json({
       status: 'failed',
-      message: 'token is not valid. access denied.'
+      errors: [{ msg: 'token is not valid. access denied. Please login again.'}]
     })
   }
 }

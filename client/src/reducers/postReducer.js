@@ -3,7 +3,7 @@ import {GET_ALLPOSTS, GET_POST, DELETE_POST, POST_ERROR, TOGGLE_LIKE, UPDATE_POS
 let initialState = {
   posts: [],
   post : null,
-  errors: {},
+  error: {},
   loading: true
 }
 
@@ -67,7 +67,7 @@ const postReducer = (state = initialState, action) => {
     case POST_ERROR:
       return {
         ...state,
-        errors: payload,
+        error: payload,
         loading: false
       }
     default:

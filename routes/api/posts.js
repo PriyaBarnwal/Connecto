@@ -166,7 +166,7 @@ router.route('/:postid/like')
           })
           
         let index = post.likes.map(like =>like.user.toString()).indexOf(req.user) 
-          console.log(index)
+
         if(index=== -1)
           post.likes.unshift({
             user: req.user,
@@ -183,7 +183,6 @@ router.route('/:postid/like')
 
       }
       catch(err) {
-        console.log(err)
         if(err.kind === 'ObjectId')
           return res.status(404).json({
             message: 'post not found'

@@ -8,7 +8,8 @@ import {
   UPDATE_EDUCATION,
   UPDATE_EXPERIENCE,
   GET_PROFILES,
-  PROFILE_ERROR
+  PROFILE_ERROR,
+  SET_LOADING
 } from '../actions/constants'
 
 const initialState = {
@@ -23,6 +24,11 @@ const profileReducer = (state=initialState, action) => {
   let {type, payload} = action
 
   switch(type) {
+    case SET_LOADING:
+      return {
+        ...state,
+        loading: payload
+      }
     case GET_MYPROFILE:
     case CREATE_PROFILE:
     case UPDATE_PROFILE:
@@ -36,7 +42,8 @@ const profileReducer = (state=initialState, action) => {
     case GET_PROFILE:
       return {
         ...state,
-        profile: payload
+        profile: payload,
+        loading: false
       }
     case CLEAR_MYPROFILE:
       return {
@@ -58,8 +65,7 @@ const profileReducer = (state=initialState, action) => {
       return {
         ...state,
         error: payload,
-        loading: false,
-        profile: null
+        loading: false
       };
     default: 
       return state

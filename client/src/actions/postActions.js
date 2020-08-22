@@ -20,7 +20,6 @@ export const getAllPosts = () => async(dispatch) => {
 
 export const getPostById = (postid) => async(dispatch) => {
   try {
-    console.log(axios.defaults)
     let res = await axios.get(`/api/posts/${postid}`)
 
     dispatch({

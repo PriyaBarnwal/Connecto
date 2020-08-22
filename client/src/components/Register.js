@@ -41,16 +41,16 @@ const Register = ({setAlert, registerUser, isAuthenticated}) => {
             <p className="lead"><i className="fas fa-user"></i> Create Your Account</p>
           </div>
           <div className="mb-3">
-            <input type="text" id="name" value={name} className="form-control" placeholder="Enter Name" onChange={e=>onChange(e)}  autoFocus/>
+            <input type="text" id="name" value={name} className="form-control" placeholder="Enter Name" onChange={e=>onChange(e)}  autoFocus required/>
           </div>
           <div className="mb-3">
-            <input type="email" id="email" value={email} className="form-control" placeholder="Enter Email address" onChange={e=>onChange(e)} />
+            <input type="email" id="email" value={email} className="form-control" placeholder="Enter Email address" onChange={e=>onChange(e)} required/>
           </div>
           <div className="mb-3">
-            <input type="password" id="password" value={password} className="form-control" placeholder="Enter Password" minLength="8" onChange={e=>onChange(e)} />
+            <input type="password" id="password" value={password} className="form-control" placeholder="Enter Password" minLength="8" onChange={e=>onChange(e)} required/>
           </div>
           <div>
-            <input type="password" id="passwordConfirm" value={passwordConfirm} className="form-control" placeholder="Confirm Password" onChange={e=>onChange(e)} minLength="8" />
+            <input type="password" id="passwordConfirm" value={passwordConfirm} className="form-control" placeholder="Confirm Password" onChange={e=>onChange(e)} minLength="8" required/>
           </div>
           <button className="btn btn-lg btn-info btn-block mt-3" type="submit">Sign up</button>
           <p className="my-1">Already a User? <Link className="color-prime" to="/login">Login</Link> here</p>

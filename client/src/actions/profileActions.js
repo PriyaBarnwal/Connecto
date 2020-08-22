@@ -8,9 +8,17 @@ import {
   UPDATE_EDUCATION,
   UPDATE_EXPERIENCE,
   GET_PROFILES,
-  PROFILE_ERROR
+  PROFILE_ERROR,
+  SET_LOADING
 } from './constants'
 import {setAlert} from './alertActions'
+
+export const setLoading = (payload) => async(dispatch) => {
+  dispatch({
+    type: SET_LOADING,
+    payload
+  })
+}
 
 export const getMyProfile = () => async(dispatch) => {
   try {

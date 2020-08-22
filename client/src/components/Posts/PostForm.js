@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { createPost, updatePost } from '../../actions/postActions'
 import { Form, Button} from 'react-bootstrap'
-import {withRouter} from 'react-router-dom'
+import {withRouter, Redirect} from 'react-router-dom'
 
 const initialState = {
   title: '',
@@ -10,7 +10,7 @@ const initialState = {
   tags: ''
 }
 
-const PostForm = ({posts: {posts}, createPost, updatePost, history, match}) => {
+const PostForm = ({posts: {posts, error}, createPost, updatePost, history, match}) => {
   let [formData, setFormData] = useState(initialState)
 
   useEffect(() => {
@@ -30,6 +30,9 @@ const PostForm = ({posts: {posts}, createPost, updatePost, history, match}) => {
     e.preventDefault()
     id ? updatePost(id, formData, history) : createPost(formData, history)
   }
+
+  if(error.status === 404)
+    return <Redirect to="/notFound"/>
 
   return (
     <Fragment>

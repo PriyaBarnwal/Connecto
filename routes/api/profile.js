@@ -34,7 +34,7 @@ router.route('/myprofile')
         let profile = await Profile.findOne({user: req.user})
         if(!profile)
           return res.status(404).json({
-            message: 'no profile found!'
+            message: 'no page found!'
           })
 
         let fields = ['company', 'location', 'role', 'skills', 'githubusername', 'hobbies', 'bio'],
@@ -63,7 +63,11 @@ router.route('/myprofile')
         })
       }
       catch(err) {
-        console.log(err)
+        if(err.name === 'CastError')
+          res.status(404).json({
+            message: 'no page found!'
+          })
+
         res.status(500).json({
           status: 'failed',
           message: 'server error'
@@ -86,6 +90,11 @@ router.route('/myprofile')
         })
       }
       catch(err) {
+        if(err.name === 'CastError')
+          res.status(404).json({
+            message: 'no page found!'
+          })
+
         res.status(500).json({
           message: err.message || 'server error'
         })
@@ -169,16 +178,22 @@ router.route('/user/:userid')
   .get(async(req, res) => {
     try {
       let profile = await Profile.findOne({user: req.params.userid}).populate('user', ['name', 'email', 'photo'])
+
       if(!profile)
         return res.status(404).json({
           message: 'profile not found!'
         })
+
       res.status(200).json({
         status: 'success',
         data: profile
       })
     }
     catch(err) {
+      if(err.name === 'CastError')
+          res.status(404).json({
+            message: 'no page found!'
+          })
       res.status(500).json({
         message: 'server error'
       })
@@ -223,7 +238,6 @@ router.route('/experience')
         })
       }
       catch(err) {
-        console.log(err)
         res.status(500).json({
           message: 'server error'
         })
@@ -247,6 +261,10 @@ router.route('/experience/:expid')
         })
       }
       catch(err) {
+        if(err.name === 'CastError')
+          res.status(404).json({
+            message: 'no page found!'
+          })
         res.status(500).json({
           message: 'server error'
         })
@@ -266,9 +284,9 @@ router.route('/experience/:expid')
             status: 'failed',
             message: 'no experience found of this id'
           })
-          console.log(profile.experience[index])
+  
         profile.experience[index] = Object.assign(profile.experience[index], req.body)
-        console.log(profile.experience[index])
+
         await profile.save()
 
         res.status(200).json({
@@ -277,7 +295,11 @@ router.route('/experience/:expid')
         })
       }
       catch(err) {
-        console.log(err)
+        if(err.name === 'CastError')
+          res.status(404).json({
+            message: 'no page found!'
+          })
+
         res.status(500).json({
           message: 'server error'
         })
@@ -323,7 +345,6 @@ router.route('/education')
         })
       }
       catch(err) {
-        console.log(err)
         res.status(500).json({
           message: 'server error'
         })
@@ -347,6 +368,10 @@ router.route('/education/:eduid')
         })
       }
       catch(err) {
+        if(err.name === 'CastError')
+          res.status(404).json({
+            message: 'no page found!'
+          })
         res.status(500).json({
           message: 'server error'
         })
@@ -366,9 +391,9 @@ router.route('/education/:eduid')
             status: 'failed',
             message: 'no education found of this id'
           })
-          console.log(profile.education[index])
+
         profile.education[index] = Object.assign(profile.education[index], req.body)
-        console.log(profile.education[index])
+
         await profile.save()
 
         res.status(200).json({
@@ -377,6 +402,10 @@ router.route('/education/:eduid')
         })
       }
       catch(err) {
+        if(err.name === 'CastError')
+          res.status(404).json({
+            message: 'no page found!'
+          })
         res.status(500).json({
           message: 'server error'
         })

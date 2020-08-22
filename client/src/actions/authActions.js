@@ -29,6 +29,8 @@ export const registerUser = ({name, email, password}) => async(dispatch) => {
     )
 
     dispatch(checkAuth())
+
+    dispatch(setAlert('user registered successfully!', 'success'))
   } catch(err) {
     let errors = err.response.data.errors
 

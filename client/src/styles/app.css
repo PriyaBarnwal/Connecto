@@ -139,6 +139,10 @@ html, body, #root {
   .hide-sm {
     display: none;
   }
+
+  .alert-position {
+    left: 20% !important;
+  }
 }
 
 @media (max-width: 1000px) and (min-width: 768px) {
@@ -234,8 +238,9 @@ html, body, #root {
 
 .alert-position {
   position: fixed;
+  width: 300px;
   top: 100px;
-  left: 10px;
+  left: 40%;
   z-index: 100;
   text-align: center;
 }

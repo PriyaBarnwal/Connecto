@@ -4,7 +4,6 @@ import {connect} from 'react-redux'
 import {Card, Image, OverlayTrigger, Popover, Button, ListGroup} from 'react-bootstrap'
 import {deletePost, toggleLike} from '../../actions/postActions'
 import Moment from 'react-moment'
-import '../../styles/feed.css'
 
 const PostItem = ({post, deletePost, toggleLike, history, auth}) => {
   let liked = post.likes.findIndex(like=> like.user.toString() === auth.user._id) === -1 ? '' : 'liked'

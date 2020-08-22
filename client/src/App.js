@@ -12,6 +12,7 @@ import ViewProfile from './components/Profile/ViewProfile'
 import ViewPost from './components/Posts/ViewPost'
 import PostForm from './components/Posts/PostForm'
 import ProfileForm from './components/Profile/ProfileForm'
+import NotFoundPage from './components/NotFoundPage'
 import PeopleSearch from './components/PeopleSearch'
 import { checkAuth } from './actions/authActions'
 import Alert from './components/Alert'
@@ -26,12 +27,11 @@ const App = () => {
     async function checkauth() { 
     await store.dispatch(checkAuth())
   }
+
   checkauth()
 }, [])
 
   return (
-    //<Portfolio/>
-    
     <Provider store={store}>
       <Router>
         <Fragment>
@@ -40,8 +40,8 @@ const App = () => {
               <Navbar/>
               <div className="just-empty"/>
                 <Alert/>
-                <Route exact path="/" component={HomeContainer}/>
                 <Switch>
+                  <Route exact path="/" component={HomeContainer}/>
                   <Route exact path="/register" component={Register}/>
                   <Route exact path="/login" component={Login}/>
                   <Route exact path="/profiles" component={PeopleSearch}/>
@@ -52,6 +52,7 @@ const App = () => {
                   <PrivateRoute exact path="/editprofile" component={ProfileForm}/>
                   <PrivateRoute exact path="/createPost" component={PostForm}/>
                   <PrivateRoute exact path="/editPost/:id" component={PostForm}/>
+                  <Route component={NotFoundPage}/>
                 </Switch>
               </div>
             <Footer/>

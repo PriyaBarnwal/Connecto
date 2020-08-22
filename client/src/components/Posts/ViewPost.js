@@ -1,6 +1,6 @@
 import React, {Fragment, useEffect, useState} from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import {getPostById, removeComment, addComment, clearPost, toggleLike} from '../../actions/postActions'
 import { Container, Row, Image, Col, Badge, Media, Button, Form } from 'react-bootstrap'
 import Moment from 'react-moment'
@@ -10,7 +10,7 @@ const hasUserLiked = (post, user) => {
   return post.likes.findIndex(like=> like.user.toString() === user._id) === -1 ? 'not-liked' : 'liked'
 }
 
-const ViewPost = ({posts: {post, posts}, auth: {user}, getPostById, removeComment, addComment, toggleLike, match, computedMatch}) => {
+const ViewPost = ({posts: {post, posts, error}, auth: {user}, getPostById, removeComment, addComment, toggleLike, computedMatch}) => {
   useEffect(()=> {
     clearPost()
     getPostById(computedMatch.params.id)
@@ -18,6 +18,9 @@ const ViewPost = ({posts: {post, posts}, auth: {user}, getPostById, removeCommen
 
   let [text, setComment] = useState('')
 
+  if(error.status === 404)
+    return <Redirect to="/notFound"/>
+    
   return (
     <Fragment>
       {post === null ? (
