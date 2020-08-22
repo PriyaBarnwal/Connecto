@@ -12,7 +12,7 @@ const initialState = {
   location: '',
   role: '',
   skills: '',
-  githubusername: '',
+  github: '',
   twitter: '',
   facebook: '',
   linkedIn: '',
@@ -59,7 +59,7 @@ const ProfileForm = ({
     location,
     role,
     skills,
-    githubusername,
+    github,
     bio,
     twitter,
     facebook,
@@ -298,6 +298,17 @@ const ProfileForm = ({
                 placeholder="Linkedin URL"
                 name="linkedIn"
                 value={linkedIn}
+                onChange={onChange}
+              />
+            </div>
+            <div className="form-group social-input">
+              <i className="fab fa-github fa-2x text-white"/>
+              <input
+                className="form-control"
+                type="text"
+                placeholder="Github profile URL"
+                name="github"
+                value={github}
                 onChange={onChange}
               />
             </div>

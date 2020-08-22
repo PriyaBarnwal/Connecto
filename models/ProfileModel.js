@@ -21,9 +21,6 @@ const ProfileSchema = new mongoose.Schema({
     type:[String],
     required: true
   },
-  githubusername : {
-    type: String
-  },
   hobbies: {
     type:[String],
     required: true
@@ -96,7 +93,8 @@ const ProfileSchema = new mongoose.Schema({
     linkedIn: String,
     youtube: String,
     facebook: String,
-    twitter: String
+    twitter: String,
+    github: String
   },
   date: {
     type: Date,

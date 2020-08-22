@@ -37,7 +37,7 @@ router.route('/myprofile')
             message: 'no page found!'
           })
 
-        let fields = ['company', 'location', 'role', 'skills', 'githubusername', 'hobbies', 'bio'],
+        let fields = ['company', 'location', 'role', 'skills', 'hobbies', 'bio'],
           update = {} 
           
         Object.keys(req.body).map(key => {
@@ -54,6 +54,7 @@ router.route('/myprofile')
         update.social.linkedIn = req.body.linkedIn || profile.social.linkedIn
         update.social.twitter = req.body.twitter || profile.social.twitter
         update.social.facebook = req.body.facebook || profile.social.facebook
+        update.social.github = req.body.github || profile.social.github
 
         let updatedProfile = await Profile.findOneAndUpdate({user: req.user}, update, {new: true})
 
@@ -140,7 +141,7 @@ router.route('/')
           errors
         })
       try {
-        const {company, location, role, skills, githubusername, youtube, facebook, linkedIn, twitter, bio, hobbies} = req.body
+        const {company, location, role, skills, github, youtube, facebook, linkedIn, twitter, bio, hobbies} = req.body
 
         let newProfile = new Profile({
           user: req.user,
@@ -150,7 +151,6 @@ router.route('/')
           skills: skills.split(',').map(skill => skill.trim()),
           hobbies: hobbies.split(',').map(hobby => hobby.trim()),
           bio,
-          githubusername,
           social : {}
         })
 
@@ -158,6 +158,7 @@ router.route('/')
         facebook ? (newProfile.social.facebook = facebook): null
         linkedIn ? (newProfile.social.linkedIn = linkedIn): null
         twitter ? (newProfile.social.twitter = twitter): null
+        github ? (newProfile.social.github = github): null
 
         await newProfile.save()
 
