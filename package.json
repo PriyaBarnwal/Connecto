@@ -1,13 +1,14 @@
 {
-  "name": "connecto",
+  "name": "devWEavers",
   "version": "1.0.0",
-  "description": "Social networking platform",
+  "description": "Social networking platform for developers",
   "main": "server.js",
   "scripts": {
     "start": "node server",
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "author": "Priyanka Barnwal",
   "license": "ISC",
