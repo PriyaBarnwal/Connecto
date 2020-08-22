@@ -25,10 +25,10 @@ const Navbar = ({auth, signOut, deleteAccount}) => {
   let dashboardNav = (
     <ul className="navbar-nav">
       <li className="nav-item px-2">
-        <Link className="nav-link" to="/createPost"><i className="fas fa-edit"/> Create Post</Link>
+        <Link className="nav-link" to="/createPost"><i className="fas fa-edit hide-md"/> Create Post</Link>
       </li>
       <li className="nav-item px-2">
-        <Link className="nav-link" to="/dashboard"><i className="fas fa-scroll"/> Feed</Link>
+        <Link className="nav-link" to="/dashboard"><i className="fas fa-scroll hide-md"/> Feed</Link>
       </li>
       <li className="nav-item dropdown">
         <div className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -36,7 +36,7 @@ const Navbar = ({auth, signOut, deleteAccount}) => {
         </div>
         <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
           <Link className="dropdown-item" to="/myprofile">My Profile</Link>
-          <button className="dropdown-item" type="button" onClick={deleteAccount}>Delete Account</button>
+          <button className="dropdown-item" type="button" onClick={()=> auth.user && deleteAccount(auth.user._id)}>Delete Account</button>
           <div className="dropdown-divider"></div>
           <button className="dropdown-item" type="button" onClick={signOut}>Sign out</button>
         </div>

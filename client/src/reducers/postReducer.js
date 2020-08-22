@@ -1,4 +1,4 @@
-import {GET_ALLPOSTS, GET_POST, DELETE_POST, POST_ERROR, TOGGLE_LIKE, UPDATE_POST, CLEAR_POST, ADD_COMMENT, REMOVE_COMMENT, CREATE_POST} from '../actions/constants'
+import {GET_ALLPOSTS, GET_POST, DELETE_POST, POST_ERROR, TOGGLE_LIKE, UPDATE_POST, CLEAR_POST, CLEAR_MYPOSTS, ADD_COMMENT, REMOVE_COMMENT, CREATE_POST} from '../actions/constants'
 
 let initialState = {
   posts: [],
@@ -53,6 +53,11 @@ const postReducer = (state = initialState, action) => {
       return {
         ...state,
         post: null
+      }
+    case CLEAR_MYPOSTS: 
+      return {
+        ...state,
+        posts: state.posts.filter(post => post.user.toString() !== payload)
       }
     case DELETE_POST:
       return {

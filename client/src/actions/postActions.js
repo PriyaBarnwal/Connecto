@@ -130,6 +130,8 @@ export const addComment = (postid, data) => async(dispatch) => {
         id: postid
       }
     })
+    
+    dispatch(setAlert('comment added successfully', 'secondary'))
   }
   catch(err) {
     dispatch({
@@ -150,6 +152,8 @@ export const removeComment = (postid, commentid) => async(dispatch) => {
         id: postid
       }
     })
+
+    dispatch(setAlert('comment removed successfully', 'secondary'))
   }
   catch(err) {
     dispatch({

@@ -1,6 +1,7 @@
 const express = require('express')
 const {body, validationResult} = require('express-validator')
 const Profile = require('../../models/ProfileModel')
+const Post = require('../../models/PostModel')
 const User = require('../../models/UserModel')
 const authMiddleware = require('../../middlewares/authMiddleware')
 
@@ -74,6 +75,8 @@ router.route('/myprofile')
     authMiddleware.checkAuth,
     async(req, res) => {
       try {
+        await Post.deleteMany({ user: req.user });
+
         await Profile.findOneAndRemove({user: req.user})
 
         await User.findOneAndRemove({_id: req.user})

@@ -3,11 +3,13 @@ import { connect } from 'react-redux'
 
 const Alert = ({alerts}) => {
   return(
-    alerts && alerts.length? alerts.map(alert => 
-      <div key={alert.id} className={`alert alert-${alert.type} mx-auto text-center`} role="alert">
+    <div className="alert-position">
+      {alerts && alerts.length? alerts.map(alert => 
+      <div key={alert.id} className={`alert alert-${alert.type} alert-position`} role="alert">
         {alert.msg}
       </div>
-    ) : null
+    ) : null}
+    </div>
   )
 }
 

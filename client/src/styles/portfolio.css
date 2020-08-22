@@ -70,7 +70,7 @@ ul {
 
 .experience-section {
   padding: 30px;
-  background: #ffa804;;
+  background: #2d92a1;;
   color: rgb(15, 15, 4);
   border-radius: 0.25rem 0.25rem 0 0;
 }
@@ -81,7 +81,8 @@ ul {
 }
 
 .about-card {
-  background-color: #245b63;
+  /* background-color: #ffa804; */
+  background: chocolate;
 }
 
 .badge-group {

@@ -1,4 +1,4 @@
-import { REGISTER_SUCCESS, AUTH_FAILURE, LOGIN_SUCCESS, AUTH_SUCCESS, SIGN_OUT } from '../actions/constants'
+import { REGISTER_SUCCESS, AUTH_FAILURE, LOGIN_SUCCESS, AUTH_SUCCESS, SIGN_OUT, REMOVE_ACCOUNT } from '../actions/constants'
 
 let initialState = {
   token: localStorage.getItem('token'),
@@ -27,6 +27,7 @@ const authReducer = (state=initialState, action) => {
       }
     case AUTH_FAILURE:
     case SIGN_OUT:
+    case REMOVE_ACCOUNT:
       localStorage.removeItem('token')
       return {
         ...state,

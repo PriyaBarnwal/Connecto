@@ -26,7 +26,7 @@ router.route('/register')
       })
     let {name, email, password} = req.body
 
-    let photoUrl = gravatar.url(email, {s: '200', r: 'pg', d: 'mm'})
+    let photoUrl = gravatar.url(email, {s: '200', r: 'pg', d: 'identicon'})
     try {
       let newUser = new User({
         name: name,

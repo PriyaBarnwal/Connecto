@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { REGISTER_SUCCESS, AUTH_FAILURE, LOGIN_SUCCESS, AUTH_SUCCESS, SIGN_OUT, CLEAR_MYPROFILE, REMOVE_ACCOUNT } from './constants'
+import { REGISTER_SUCCESS, AUTH_FAILURE, LOGIN_SUCCESS, AUTH_SUCCESS, SIGN_OUT, CLEAR_MYPROFILE, CLEAR_MYPOSTS, REMOVE_ACCOUNT } from './constants'
 import {setAlert} from './alertActions'
 
 const setAuthToken = token => {
@@ -116,6 +116,21 @@ export const signOut = () => (dispatch) => {
   )
 }
 
-export const deleteAccount = () => (dispatch) => {
-  // add later
+export const deleteAccount = (id) => async dispatch => {
+  if (window.confirm('Are you sure? This can NOT be undone!')) {
+    try {
+      await axios.delete('/api/profiles/myprofile')
+
+      dispatch({ type: CLEAR_MYPROFILE })
+      dispatch({ 
+        type: CLEAR_MYPOSTS,
+        payload: id
+      })
+      dispatch({ type: REMOVE_ACCOUNT })
+
+      dispatch(setAlert('Your account has been permanently deleted', 'success'))
+    } catch (err) {
+      console.log(err)
+    }
+  }
 }
