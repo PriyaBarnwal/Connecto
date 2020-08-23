@@ -32,7 +32,7 @@ const Navbar = ({auth, signOut, deleteAccount}) => {
       </li>
       <li className="nav-item dropdown">
         <div className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Hi {auth.user && auth.user.name}
+          Hi {auth.user && auth.user.name.split(' ')[0]}
         </div>
         <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
           <Link className="dropdown-item" to="/myprofile">My Profile</Link>
