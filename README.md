@@ -33,8 +33,8 @@ $ npm install
 Set up the default.json file in config folder with the following<br/>
 ```
 {
-  "mongoURI": "<your_mongoDB_Atlas_uri>",
-  "jwtSecret": "some_secret_key"
+  "MONGODB_URI": "<your_mongoDB_Atlas_uri>",
+  "JWT_SECRET": "some_secret_key"
 }
 ```
 
