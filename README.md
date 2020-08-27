@@ -21,7 +21,7 @@ You can see it in action here: https://blooming-beyond-53153.herokuapp.com
 * Post your project ideas and discuss it with others.
 	
 ## Setup
-To run the application locally; clone the repo, install server and client dependencies, add a config file with your mongouri and run the app.
+To run the application locally; clone the repo, install server and client dependencies, add a config file with your mongoUri and run the app.
 
 ```
 $ git clone https://github.com/PriyaBarnwal/devWEavers.git
@@ -31,13 +31,6 @@ $ cd client
 $ npm install
 ```
 Set up the default.json file in config folder with the following<br/>
-```
-{
-  "MONGODB_URI": "<your_mongoDB_Atlas_uri>",
-  "JWT_SECRET": "some_secret_key"
-}
-```
-
 And you are good to go. Run this command and you will be able to access it at localhost:3000.
 ```
 $ npm run dev
