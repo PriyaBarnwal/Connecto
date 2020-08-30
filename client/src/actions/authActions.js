@@ -2,11 +2,15 @@ import axios from 'axios'
 import { REGISTER_SUCCESS, AUTH_FAILURE, LOGIN_SUCCESS, AUTH_SUCCESS, SIGN_OUT, CLEAR_MYPROFILE, CLEAR_MYPOSTS, REMOVE_ACCOUNT } from './constants'
 import {setAlert} from './alertActions'
 
-const setAuthToken = token => {
-  if(token)
+export const setAuthToken = token => {
+  if (token) {
     axios.defaults.headers.common['x-auth-token'] = token
-  else
+    localStorage.setItem('token', token)
+  }
+  else {
     delete axios.defaults.headers.common['x-auth-token']
+    localStorage.removeItem('token')
+  }
 }
 
 export const registerUser = ({name, email, password}) => async(dispatch) => {
