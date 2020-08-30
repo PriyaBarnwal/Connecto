@@ -10,7 +10,8 @@
 ## General info
 The project has been built on mern stack and deployed in heroku. It is a SPA with the client side being bootstrapped with [create-react-app](https://github.com/facebookincubator/create-react-app) 
 and the backend powered up by [express](https://github.com/expressjs/express) and [node](https://github.com/nodejs/node).<br/>
-The web app has been made responsive with the help of [react-bootstrap](https://github.com/react-bootstrap/react-bootstrap).
+The web app has been made responsive with the help of [react-bootstrap](https://github.com/react-bootstrap/react-bootstrap).<br/>
+Redux has been used for state management, Formik and Yup have been used for form validation and handling.
 
 ## Demo
 You can see it in action here: https://blooming-beyond-53153.herokuapp.com
