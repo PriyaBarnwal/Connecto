@@ -1,33 +1,37 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {Link, Redirect} from 'react-router-dom'
+import { Formik, Form, ErrorMessage, FastField} from 'formik'
+import * as Yup from 'yup'
 import { connect } from 'react-redux'
 import { Container } from 'react-bootstrap'
-import { setAlert } from '../actions/alertActions'
 import { registerUser } from '../actions/authActions'
 import logo from '../img/logo.png'
 
-const Register = ({setAlert, registerUser, isAuthenticated}) => {
-  const [formData, setFormData] = useState({
+const Register = ({registerUser, isAuthenticated}) => {
+  const initialValues = {
     name: '',
     email: '',
     password: '',
     passwordConfirm: ''
-  })
-
-  let { name, email, password, passwordConfirm } = formData
-
-  let submitForm = (e) => {
-    e.preventDefault()
-    if(password!==passwordConfirm)
-      setAlert('Passwords do not match!', 'danger')
-    else
-      registerUser(formData)
   }
 
-  let onChange = e => setFormData({
-    ...formData,
-    [e.target.id]: e.target.value
+  const validationSchema = Yup.object({
+    name: Yup.string().required('Name is required!'),
+    email: Yup.string().email('Invalid email format').required('email is required!'),
+    password: Yup.string()
+      .required('password is required!')
+      .min(8, 'Password is too short - should be 8 chars minimum.')
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/,
+        'Password should have atleast a lowercase, an uppercase and a number'
+      ),
+    passwordConfirm: Yup.string().required('Confirm your password!').oneOf([Yup.ref('password'), ''], 'passwords do not match')
   })
+
+  let submitForm = (values, submitProps) => {
+    registerUser(values)
+      .then(() => submitProps.setSubmitting(false))
+  }
 
   if(isAuthenticated)
     return <Redirect to="/dashboard"/>
@@ -35,26 +39,40 @@ const Register = ({setAlert, registerUser, isAuthenticated}) => {
   return (
     <section className="back-page">
       <Container className="loginform-container">
-        <form className="form-signup" onSubmit={e => submitForm(e)}>
-          <div className="text-center mb-3">
-            <img className="mb-4" src={logo} alt="logo" height="90"/> 
-            <p className="lead"><i className="fas fa-user"></i> Create Your Account</p>
-          </div>
-          <div className="mb-3">
-            <input type="text" id="name" value={name} className="form-control" placeholder="Enter Name" onChange={e=>onChange(e)}  autoFocus required/>
-          </div>
-          <div className="mb-3">
-            <input type="email" id="email" value={email} className="form-control" placeholder="Enter Email address" onChange={e=>onChange(e)} required/>
-          </div>
-          <div className="mb-3">
-            <input type="password" id="password" value={password} className="form-control" placeholder="Enter Password" minLength="8" onChange={e=>onChange(e)} required/>
-          </div>
-          <div>
-            <input type="password" id="passwordConfirm" value={passwordConfirm} className="form-control" placeholder="Confirm Password" onChange={e=>onChange(e)} minLength="8" required/>
-          </div>
-          <button className="btn btn-lg btn-info btn-block mt-3" type="submit">Sign up</button>
-          <p className="my-1">Already a User? <Link className="color-prime" to="/login">Login</Link> here</p>
-        </form>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={submitForm}
+        >
+          {formik => {
+            return (
+              <Form className="form-signup">
+                <div className="text-center mb-3">
+                  <img className="mb-4" src={logo} alt="logo" height="90"/> 
+                  <p className="lead"><i className="fas fa-user"></i> Create Your Account</p>
+                </div>
+                <div className="mb-3">
+                  <FastField type="text" id="name" name="name" className="form-control" placeholder="Enter Name"/>
+                  <div className="text-error"><ErrorMessage name='name'/></div>
+                </div>
+                <div className="mb-3">
+                  <FastField type="email" id="email" name="email" className="form-control" placeholder="Enter Email address"/>
+                  <div className="text-error"><ErrorMessage name='email'/></div>
+                </div>
+                <div className="mb-3">
+                  <FastField type="password" id="password" name="password" className="form-control" placeholder="Enter Password"/>
+                  <div className="text-error"><ErrorMessage name='password'/></div>
+                </div>
+                <div>
+                  <FastField type="password" id="passwordConfirm" name="passwordConfirm" className="form-control" placeholder="Confirm Password"/>
+                  <div className="text-error"><ErrorMessage name='passwordConfirm'/></div>
+                </div>
+                <button className="btn btn-lg btn-info btn-block mt-3" type="submit" disabled={formik.isSubmitting}>Sign up</button>
+                <p className="my-1">Already a User? <Link className="color-prime" to="/login">Login</Link> here</p>
+              </Form>
+            )
+          }}
+        </Formik>
       </Container>
     </section>
   )
@@ -64,4 +82,4 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated
 })
 
-export default connect(mapStateToProps, {setAlert, registerUser})(Register)
+export default connect(mapStateToProps, {registerUser})(Register)

@@ -252,3 +252,8 @@ html, body, #root {
   z-index: 100;
   text-align: center;
 }
+
+.text-error {
+  color: red;
+  font-size: small;
+}

@@ -1,24 +1,12 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import {Modal} from 'react-bootstrap'
 import { connect } from 'react-redux'
+import { Formik, Form, ErrorMessage, FastField } from 'formik'
+import * as Yup from 'yup'
 import Moment from 'react-moment'
 import { createProfile, updateProfile, getMyProfile, removeEducation, removeExperience } from '../../actions/profileActions'
 import AddExperience from './AddExperience'
 import AddEducation from './AddEducation'
-
-const initialState = {
-  company: '',
-  bio: '',
-  location: '',
-  role: '',
-  skills: '',
-  github: '',
-  twitter: '',
-  facebook: '',
-  linkedIn: '',
-  youtube: '',
-  hobbies: ''
-}
 
 const ProfileForm = ({
   profile: {myprofile, loading},
@@ -28,18 +16,41 @@ const ProfileForm = ({
   removeEducation,
   removeExperience
 }) => {
-  const [formData, setFormData] = useState(initialState)
-
   const [isExpAddModalOpen, toggleExpAddModal] = useState(false)
   const [isEduAddModalOpen, toggleEduAddModal] = useState(false)
   const [isExpEditModalOpen, toggleExpEditModal] = useState(false)
   const [isEduEditModalOpen, toggleEduEditModal] = useState(false)
   const [id, setId] = useState(null)
 
+  let initialState = {
+    company: '',
+    bio: '',
+    location: '',
+    role: '',
+    skills: '',
+    github: '',
+    twitter: '',
+    facebook: '',
+    linkedIn: '',
+    youtube: '',
+    hobbies: ''
+  }
+
+  const [initialValues, setFormData] = useState(initialState)
+
+  const validationSchema = Yup.object({
+    company: Yup.string().required('Required!'),
+    bio: Yup.string().required('Required!').max(200, 'you cannot exceed 200 characters'),
+    role: Yup.string().required('Required!'),
+    location: Yup.string().required('Required!'),
+    skills: Yup.string().required('Required!'),
+    hobbies: Yup.string().required('Required!'),
+  })
+
   useEffect(() => {
     if (!myprofile) getMyProfile()
     if (!loading && myprofile) {
-      const profileData = { ...initialState }
+      const profileData = { ...initialValues }
       for (const key in myprofile) {
         if (key in profileData) profileData[key] = myprofile[key]
       }
@@ -54,26 +65,8 @@ const ProfileForm = ({
     }
   }, [loading, getMyProfile, myprofile])
 
-  const {
-    company,
-    location,
-    role,
-    skills,
-    github,
-    bio,
-    twitter,
-    facebook,
-    linkedIn,
-    youtube,
-    hobbies
-  } = formData
-
-  const onChange = e =>
-    setFormData({ ...formData, [e.target.name]: e.target.value })
-
-  const onSubmit = e => {
-    e.preventDefault()
-    myprofile ? updateProfile(formData) :createProfile(formData)
+  const onSubmit = (values) => {
+    myprofile ? updateProfile(values) :createProfile(values)
   }
 
   const Expmodal = (action, values)=>{
@@ -194,127 +187,116 @@ const ProfileForm = ({
 
   return (
     <Fragment>
-      <div className="container form-container">
-        <form onSubmit={onSubmit} className="form">
+      <Formik 
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={onSubmit}
+        enableReinitialize
+      >
+        <Form className="form container form-container">
           <div className="form-group">
-            <label for="bio" className="form-label">Bio<sup>*</sup></label>
-            <textarea type="text" className="form-control" id="bio" name="bio" value={bio} onChange={onChange} required/>
+            <label htmlFor="bio">Bio<sup>*</sup></label>
+            <FastField as="textarea" className="form-control" name="bio" id="bio"/>
+            <div className="text-error"><ErrorMessage className="text-error" name='bio'/></div>
           </div>
-          <label for="" className="form-label">Current job status<sup>*</sup></label>
+          <label htmlFor="" className="form-label">Current job status<sup>*</sup></label>
           <div className="form-row form-group">
             <div className="col">
-              <input 
+              <FastField 
                 type="text" 
                 name="role" 
                 className="form-control"
-                value={role} 
-                onChange={onChange} 
-                placeholder="Enter your current role" 
-                required
+                placeholder="Enter your current role"
               />
+              <div className="text-error"><ErrorMessage className="text-error" name='role'/></div>
             </div>
             <div className="col">
-              <input type="text" 
+              <FastField type="text" 
                 placeholder="Enter your Current Company"
                 name="company"
                 className="form-control"
-                value={company}
-                onChange={onChange}
-                required
               />
+              <div  className="text-error"><ErrorMessage className="text-error" name='company'/></div>
             </div>
             <div className="col">
-              <input
+              <FastField
                 type="text"
                 placeholder="Your location"
                 name="location"
                 className="form-control"
-                value={location}
-                onChange={onChange}
               />
+              <div  className="text-error"><ErrorMessage className="text-error" name='location'/></div>
             </div>
           </div>
           <div className="form-group">
-              <label for="skills" className="form-label">Skills<sup>*</sup> (Please use comma separated values)</label>
-              <input
-                className="form-control"
-                type="text"
-                placeholder="eg. HTML,CSS,JavaScript,PHP"
-                name="skills"
-                value={skills}
-                onChange={onChange}
-              />
-            </div>
-            <div className="form-group">
-              <label for="hobbies" className="form-label">Hobbies<sup>*</sup> (Please use comma separated values)</label>
-              <input
-                className="form-control"
-                type="text"
-                placeholder="eg. sketching,reading"
-                name="hobbies"
-                value={hobbies}
-                onChange={onChange}
-              />
-            </div>
-            <label for="" className="form-label mt-2">Social Links (optional)</label>
-            <div className="form-group social-input">
-              <i className="fab fa-twitter fa-2x" />
-              <input
-                className="form-control"
-                type="text"
-                placeholder="Twitter URL"
-                name="twitter"
-                value={twitter}
-                onChange={onChange}
-              />
-            </div>
-            <div className="form-group social-input">
-              <i className="fab fa-facebook fa-2x" />
-              <input
-                className="form-control"
-                type="text"
-                placeholder="Facebook URL"
-                name="facebook"
-                value={facebook}
-                onChange={onChange}
-              />
-            </div>
-            <div className="form-group social-input">
-              <i className="fab fa-youtube fa-2x" />
-              <input
-                className="form-control"
-                type="text"
-                placeholder="YouTube URL"
-                name="youtube"
-                value={youtube}
-                onChange={onChange}
-              />
-            </div>
-            <div className="form-group social-input">
-              <i className="fab fa-linkedin fa-2x" />
-              <input
-                className="form-control"
-                type="text"
-                placeholder="Linkedin URL"
-                name="linkedIn"
-                value={linkedIn}
-                onChange={onChange}
-              />
-            </div>
-            <div className="form-group social-input">
-              <i className="fab fa-github fa-2x text-white"/>
-              <input
-                className="form-control"
-                type="text"
-                placeholder="Github profile URL"
-                name="github"
-                value={github}
-                onChange={onChange}
-              />
-            </div>
-        <input type="submit" className="btn btn-primary my-1" />
-      </form>
-      </div>
+            <label htmlFor="skills" className="form-label">Skills<sup>*</sup> (Please use comma separated values)</label>
+            <FastField
+              className="form-control"
+              type="text"
+              placeholder="eg. HTML,CSS,JavaScript,PHP"
+              name="skills"
+            />
+            <div className="text-error"><ErrorMessage className="text-error" name='skills'/></div>
+          </div>
+          <div className="form-group">
+            <label htmlFor="hobbies" className="form-label">Hobbies<sup>*</sup> (Please use comma separated values)</label>
+            <FastField
+              className="form-control"
+              type="text"
+              placeholder="eg. sketching,reading"
+              name="hobbies"
+            />
+            <div className="text-error"><ErrorMessage className="text-error" name='hobbies'/></div>
+          </div>
+          <label htmlFor="" className="form-label mt-2">Social Links (optional)</label>
+          <div className="form-group social-input">
+            <i className="fab fa-twitter fa-2x" />
+            <FastField
+              className="form-control"
+              type="text"
+              placeholder="Twitter URL"
+              name="twitter"
+            />
+          </div>
+          <div className="form-group social-input">
+            <i className="fab fa-facebook fa-2x" />
+            <FastField
+              className="form-control"
+              type="text"
+              placeholder="Facebook URL"
+              name="facebook"
+            />
+          </div>
+          <div className="form-group social-input">
+            <i className="fab fa-youtube fa-2x" />
+            <FastField
+              className="form-control"
+              type="text"
+              placeholder="YouTube URL"
+              name="youtube"
+            />
+          </div>
+          <div className="form-group social-input">
+            <i className="fab fa-linkedin fa-2x" />
+            <FastField
+              className="form-control"
+              type="text"
+              placeholder="Linkedin URL"
+              name="linkedIn"
+            />
+          </div>
+          <div className="form-group social-input">
+            <i className="fab fa-github fa-2x text-white"/>
+            <FastField
+              className="form-control"
+              type="text"
+              placeholder="Github profile URL"
+              name="github"
+            />
+          </div>
+          <input type="submit" className="btn btn-primary my-1" />
+        </Form>
+      </Formik>
       <div className="container form-container">
         <div className="d-flex">
           <h2 className="my-2">Experience </h2>
@@ -325,24 +307,23 @@ const ProfileForm = ({
           >
             <i className="fas fa-plus"></i>
           </button>
-            {isExpAddModalOpen? Expmodal('Add') : null}
+          {isExpAddModalOpen? Expmodal('Add') : null}
         </div>
-      
-      {myprofile && myprofile.experience.length> 0
-      ?
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Company</th>
-            <th className="hide-sm">Title</th>
-            <th>Years</th>
-            <th />
-          </tr>
-        </thead>
-        <tbody>{experiences}</tbody>
-      </table>: <div>No experience to show.</div>}
-    </div>
-    <div className="container form-container">
+        {myprofile && myprofile.experience.length> 0 ?
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Company</th>
+              <th className="hide-sm">Title</th>
+              <th>Years</th>
+              <th />
+            </tr>
+          </thead>
+          <tbody>{experiences}</tbody>
+        </table>
+        : <div>No experience to show.</div>}
+      </div>
+      <div className="container form-container">
         <div className="d-flex">
           <h2 className="my-2">Education </h2>
           <button
@@ -354,22 +335,20 @@ const ProfileForm = ({
           </button>
           {isEduAddModalOpen? Edumodal('Add') : null}
         </div>
-      {myprofile && myprofile.education.length> 0
-      ?
-      <table className="table">
-        <thead>
-          <tr>
-            <th>School</th>
-            <th className="hide-sm">Degree</th>
-            <th>Years</th>
-            <th />
-          </tr>
-        </thead>
-        <tbody>{educations}</tbody>
-      </table>
-      : <div>No education to show.</div>
-      }
-    </div>
+        {myprofile && myprofile.education.length> 0 ?
+        <table className="table">
+          <thead>
+            <tr>
+              <th>School</th>
+              <th className="hide-sm">Degree</th>
+              <th>Years</th>
+              <th />
+            </tr>
+          </thead>
+          <tbody>{educations}</tbody>
+        </table>
+        : <div>No education to show.</div>}
+      </div>
     </Fragment>
     
   )
