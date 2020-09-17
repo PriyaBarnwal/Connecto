@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { Container } from 'react-bootstrap'
 import { registerUser } from '../actions/authActions'
 import logo from '../img/logo.png'
+import Fade from 'react-reveal/Zoom'
 
 const Register = ({registerUser, isAuthenticated}) => {
   const initialValues = {
@@ -38,6 +39,7 @@ const Register = ({registerUser, isAuthenticated}) => {
 
   return (
     <section className="back-page">
+      <Fade Zoom>
       <Container className="loginform-container">
         <Formik
           initialValues={initialValues}
@@ -74,6 +76,7 @@ const Register = ({registerUser, isAuthenticated}) => {
           }}
         </Formik>
       </Container>
+      </Fade>
     </section>
   )
 }

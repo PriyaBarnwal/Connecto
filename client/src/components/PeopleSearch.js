@@ -7,11 +7,11 @@ import Loader from './Loader.js'
 
 const PeopleSearch = ({profile: {profiles, loading}, getProfiles, location}) => {
   useEffect(()=>{
-    if(location.props && location.props.name)
-      getProfiles(location.props.name)
+    if(location.state && location.state.name)
+      getProfiles(location.state.name)
     else
       getProfiles()
-  }, [getProfiles, location.props])
+  }, [getProfiles, location.state])
 
   return (
     <Container>

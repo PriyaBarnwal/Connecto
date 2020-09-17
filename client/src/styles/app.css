@@ -69,24 +69,6 @@ html, body, #root {
   width: 80%;
 }
 
-@media (min-width: 768px) {
-  .form-inline .form-control{
-    width: 20rem;
-  }
-
-  .fixed-top-md {
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    z-index: 1030;
-  }
-
-  .just-empty {
-    height: 60px;
-  }
-}
-
 .profile-list {
   padding: 10px;
   margin: 20px auto;
@@ -200,14 +182,30 @@ html, body, #root {
   background-size: auto;
 }
 
-.welcome {
-  font-family: cursive;
-  text-align: center;
-  color: white;
-  background: url('../img/blackwood.jpeg');
+.welcome-page {
+  height: 40vh;
+  background-color: rgb(5,87,131);
+  background: url('../img/frontend.jpg');
   background-repeat: no-repeat; 
   background-size: cover;
-  padding: 1rem;
+}
+
+.welcome {
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  color: white;
+}
+
+.welcome-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.welcome-message p {
+  margin: 15px;
+  font-family: cursive;
 }
 
 .carousel-caption p {
@@ -256,4 +254,73 @@ html, body, #root {
 .text-error {
   color: red;
   font-size: small;
+}
+
+.homepage-item {
+  margin-right: 0;
+  padding: 10px;
+  margin-top: 30px;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.1em;
+  overflow: hidden;
+}
+
+.homepage-item h1 {
+  text-shadow: 2px 1px #a9dbe2;
+  color: white;
+  font-family: cursive;
+  font-size: 1.2em;
+  animation: mymove 5s infinite;
+  animation-timing-function: ease-out;
+}
+
+@keyframes mymove {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+.homepage-item .about {
+  padding: 0 20px;
+  font-size: 'blue';
+  font-family: 'Barlow';
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 150px;
+  border-bottom: #ffa804  2px solid;
+}
+
+.homepage-item .about:nth-child(even) {
+  background: url('../img/tri.png');
+  background-repeat: no-repeat; 
+  background-size: cover;
+}
+
+.homepage-item .about:nth-child(odd) {
+  background: url('../img/tri_copy.png');
+  background-repeat: no-repeat; 
+  background-size: cover;
+}
+
+@media (min-width: 768px) {
+  .form-inline .form-control{
+    width: 20rem;
+  }
+
+  .welcome-page {
+    height: 600px;
+  }
+
+  .fixed-top-md {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+  }
+
+  .just-empty {
+    height: 60px;
+  }
 }

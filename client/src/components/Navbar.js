@@ -1,16 +1,16 @@
 import React, {Fragment, useState} from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { signOut, deleteAccount } from '../actions/authActions'
-import { Form, FormControl, Button} from 'react-bootstrap'
+import { Form, FormControl} from 'react-bootstrap'
 import logo from '../img/logo.png'
 
-const Navbar = ({auth, signOut, deleteAccount}) => {
+const Navbar = ({auth, signOut, deleteAccount, history}) => {
   let [name, setName]= useState('')
 
   let authNav = (
     <ul className="navbar-nav">
-      <li className="nav-item active px-2">
+      <li className="nav-item px-2">
         <Link className="nav-link" to="/">Home <span className="sr-only">(current)</span></Link>
       </li>
       <li className="nav-item px-2">
@@ -59,8 +59,13 @@ const Navbar = ({auth, signOut, deleteAccount}) => {
             value={name} 
             onChange={(e)=> setName(e.target.value)}
             className="mr-sm-2"
+            onKeyUp={e=> {
+              if(e.keyCode ===13) {
+                history.push('/profiles', {name: name})
+                setName('')
+              }
+            }}
           />
-          <Link to={{pathname: "/profiles", props: {'name': name}}}><Button variant="light" onClick={()=>setName('')}><i className="fas fa-search"></i></Button></Link>
         </Form>
         {auth.isLoading 
           ? null
@@ -76,4 +81,4 @@ const Navbar = ({auth, signOut, deleteAccount}) => {
 
 const mapStateToProps = (state)=> ({auth: state.auth})
 
-export default connect(mapStateToProps, {signOut, deleteAccount})(Navbar)
+export default connect(mapStateToProps, {signOut, deleteAccount})(withRouter(Navbar))
